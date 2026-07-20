@@ -1,180 +1,183 @@
 # TradePilot 🚀
 
-**Copiloto de operaciones cross-border para vendedores del ecosistema Alibaba/AliExpress.**
+**Cross-border operations copilot for sellers on the Alibaba/AliExpress ecosystem.**
 
-Lee emails de compradores en cualquier idioma, arma cotizaciones contra el catálogo real del
-vendedor, negocia usando precios de la competencia como señal de mercado, reprecia el catálogo
-y detecta inventario bajo — pidiendo aprobación humana **solo cuando el riesgo lo amerita**.
+Reads buyer emails in any language, builds quotes against the seller's real catalog,
+negotiates using competitor pricing as a market signal, reprices the catalog, and flags
+low inventory — asking for human approval **only when the risk warrants it**.
 
 > Hackathon: **Global AI Hackathon Series with Qwen Cloud** · Track 4 — Autopilot Agent.
-> Demo en vivo: **https://tradepilot.blackjaguar.dev**
+> Live demo: **https://tradepilot.blackjaguar.dev**
 
 ---
 
-## Por qué Qwen (ventaja auténtica, no bolted-on)
+## Why Qwen (a genuine edge, not bolted on)
 
-1. **Costo-por-token bajo** → volumen alto de decisiones viable en unit economics reales
-   (`qwen-flash` para extracción de alto volumen, `qwen-plus` solo para redacción final).
-2. **Integración nativa con el ecosistema Alibaba** — Tablestore y Function Compute, no
-   servicios de terceros pegados con cinta.
-3. **Multilingüe de verdad** — el agente lee y responde en el idioma del comprador (probado en
-   7 idiomas: en/es/zh/fr/de/pt/ar), traduciendo incluso nombres de variante contra un
-   vocabulario controlado del catálogo.
+1. **Low cost-per-token** → high-volume decision-making is viable in real unit economics
+   (`qwen-flash` for high-volume extraction, `qwen-plus` only for final drafting).
+2. **Native integration with the Alibaba ecosystem** — Tablestore and Function Compute, not
+   third-party services glued on with tape.
+3. **Genuinely multilingual** — the agent reads and replies in the buyer's language (tested
+   across 7 languages: en/es/zh/fr/de/pt/ar), even translating variant names against a
+   controlled catalog vocabulary.
 
-## La decisión de arquitectura que no negociamos
+## The architecture decision we didn't compromise on
 
-**El LLM nunca decide cuánto dinero se aprueba.** `qwen-flash` extrae datos, `qwen-plus`
-redacta texto — pero el descuento, el nuevo precio, y la cantidad a producir salen de
-política Python 100% determinística (`app/agent/policy.py`, `repricing.py`, `reorder.py`).
-Un modelo de lenguaje no puede alucinar un descuento que nunca calculó.
+**The LLM never decides how much money gets approved.** `qwen-flash` extracts data,
+`qwen-plus` drafts text — but the discount, the new price, and the production quantity all
+come from 100% deterministic Python policy (`app/agent/policy.py`, `repricing.py`,
+`reorder.py`). A language model can't hallucinate a discount it never computed.
 
-## Arquitectura: un solo agente core, tres triggers, un dashboard
+## Architecture: one agent core, three triggers, one dashboard
 
 ```
                     ┌─────────────────────────────────────────┐
                     │      Alibaba Cloud (ap-southeast-1)      │
                     │                                           │
-  Email real ──────▶│  Function Compute (FastAPI, custom rt.)  │
+  Real email ──────▶│  Function Compute (FastAPI, custom rt.)  │
   /webhook/email     │    ├─ pipeline.py  (extract→resolve→     │
                      │    │   decide→draft, Qwen-flash+plus)    │
-  Cron cada 10min ──▶│    ├─ repricing.py (banda ±10%)          │
-  /agent/scan/*       │    └─ reorder.py   (umbral de stock)     │
+  Cron every 10min ─▶│    ├─ repricing.py (±10% band)            │
+  /agent/scan/*       │    └─ reorder.py   (stock threshold)      │
                      │              │                            │
                      │       Tablestore (catalog, buyer_memory,  │
                      │       approvals, processed_emails)        │
                      └──────────────┬────────────────────────────┘
-                                    │ HTTPS (proxy server-side,
-                                    │ sin CORS en el backend)
+                                    │ HTTPS (server-side proxy,
+                                    │ no CORS on the backend)
                     ┌───────────────▼────────────────┐
                     │   tradepilot.blackjaguar.dev     │
-                    │   Next.js (Docker, VPS propio)   │
+                    │   Next.js (Docker, own VPS)      │
                     │   Nginx + Let's Encrypt           │
                     └───────────────────────────────────┘
 ```
 
-No son tres sistemas: son tres disparadores alimentando el **mismo** agente Qwen, el
-**mismo** catálogo (Tablestore), la **misma** memoria y el **mismo** checkpoint humano
-(una sola cola de aprobaciones, distinguida por `kind`: `quote` | `reprice` | `reorder`).
+![TradePilot architecture diagram](./docs/architecture-diagram.png)
 
-| Subflujo | Trigger | Qué hace |
+These aren't three separate systems — they're three triggers feeding the **same** Qwen
+agent, the **same** catalog (Tablestore), the **same** memory, and the **same** human
+checkpoint (a single approvals queue, distinguished by `kind`: `quote` | `reprice` |
+`reorder`).
+
+| Sub-flow | Trigger | What it does |
 |---|---|---|
-| 1 · Cotización + negociación (hero) | email entrante / webhook | parsea, detecta idioma/intención, desambigua producto, cotiza y negocia con datos de B/C |
-| 2 · Repricing | cron cada 10 min | ajusta precio dentro de banda ±10%, escala fuera de banda |
-| 3 · Reorder / producción | cron cada 10 min | compara stock vs. umbral, redacta memo de producción |
+| 1 · Quote + negotiation (hero) | inbound email / webhook | parses, detects language/intent, disambiguates the product, quotes and negotiates using competitor data |
+| 2 · Repricing | cron every 10 min | adjusts price within a ±10% band, escalates outside it |
+| 3 · Reorder / production | cron every 10 min | compares stock vs. threshold, drafts a production memo |
 
-**Bandas de escalamiento** (mismo criterio en los 3 subflujos):
+**Escalation bands** (same criteria across all three sub-flows):
 
-| Banda | Descuento / desviación | Acción |
+| Band | Discount / deviation | Action |
 |---|---|---|
-| Autopilot | ≤ 8% (cotización) · ≤ 10% (reprecio) | se aprueba/aplica solo |
-| Revisión suave | 8-15% (solo cotización) | se responde, queda marcado para auditoría |
-| Retenido | > 15% (cotización) · > 10% (reprecio) · siempre (reorder) | bloqueado hasta tu firma |
+| Autopilot | ≤ 8% (quote) · ≤ 10% (reprice) | approved / applied automatically |
+| Soft review | 8-15% (quote only) | answered automatically, flagged for audit |
+| Held | > 15% (quote) · > 10% (reprice) · always (reorder) | blocked until you sign off |
 
-## Diseño anti-RAG del catálogo (Fase 1)
+## Anti-RAG catalog design (Phase 1)
 
-80% de las líneas de producto se repiten en los 3 catálogos (vendedor propio + 2
-competidores) con el mismo nombre pero SKU/precio distintos. Un RAG por similitud de texto
-encuentra 3 candidatos igualmente "relevantes" — el agente resuelve por **contexto real**
-(a qué vendedor llegó el email), no por parecido semántico. Dentro del propio catálogo,
-una línea de producto tiene hasta 5 variantes con nombres casi idénticos (`iPhone 16` vs
-`iPhone 16 Pro`, `Galaxy S26` vs `Galaxy S26+`) — el matching prioriza exacto sobre
-substring para no confundir un producto con otro.
+80% of product lines repeat across all 3 catalogs (own seller + 2 competitors) with the
+same name but different SKU/price. A plain text-similarity RAG would find 3 equally
+"relevant" candidates — the agent resolves by **real context** (which seller the email
+arrived at), not semantic similarity. Within the seller's own catalog, a product line has
+up to 5 near-identical variant names (`iPhone 16` vs `iPhone 16 Pro`, `Galaxy S26` vs
+`Galaxy S26+`) — matching prioritizes exact match over substring so one product never gets
+confused for another.
 
 ## Stack
 
-| Capa | Herramienta |
+| Layer | Tool |
 |---|---|
-| LLM | Qwen (`qwen-flash` + `qwen-plus`, API OpenAI-compatible vía Model Studio) |
-| Backend | Python + FastAPI, custom runtime en Function Compute |
-| Memoria/DB | Alibaba Cloud Tablestore |
-| Deploy backend | Alibaba Cloud Function Compute (serverless, escala a 0) |
-| Frontend | Next.js 14 (App Router), Docker, VPS propio |
+| LLM | Qwen (`qwen-flash` + `qwen-plus`, OpenAI-compatible API via Model Studio) |
+| Backend | Python + FastAPI, custom runtime on Function Compute |
+| Memory/DB | Alibaba Cloud Tablestore |
+| Backend deploy | Alibaba Cloud Function Compute (serverless, scales to zero) |
+| Frontend | Next.js 14 (App Router), Docker, own VPS |
 | Proxy/TLS | Nginx + Let's Encrypt (VPS) |
 
-## Estructura del repo
+## Repo structure
 
 ```
 tradepilot/
 ├── app/
-│   ├── main.py              # FastAPI: ingesta, scans, lectura para el dashboard
-│   ├── config.py             # config tipada desde entorno
+│   ├── main.py              # FastAPI: ingestion, scans, read endpoints for the dashboard
+│   ├── config.py             # typed config from environment
 │   ├── agent/
-│   │   ├── pipeline.py       # orquestador del hero flow (subflujo 1)
-│   │   ├── repricing.py      # subflujo 2
-│   │   ├── reorder.py        # subflujo 3
-│   │   ├── policy.py         # política de descuento — determinística
-│   │   ├── catalog.py        # matching anti-RAG + benchmark de mercado
-│   │   ├── store.py          # aprobaciones, memoria de comprador, idempotencia
-│   │   └── schemas.py        # contratos Pydantic entre etapas
+│   │   ├── pipeline.py       # hero-flow orchestrator (sub-flow 1)
+│   │   ├── repricing.py      # sub-flow 2
+│   │   ├── reorder.py        # sub-flow 3
+│   │   ├── policy.py         # discount policy — deterministic
+│   │   ├── catalog.py        # anti-RAG matching + market benchmark
+│   │   ├── store.py          # approvals, buyer memory, idempotency
+│   │   └── schemas.py        # Pydantic contracts between stages
 │   └── clients/
-│       ├── qwen.py           # cliente Qwen (fast + smart)
-│       └── tablestore.py     # cliente Tablestore (OTS)
+│       ├── qwen.py           # Qwen client (fast + smart)
+│       └── tablestore.py     # Tablestore client (OTS)
 ├── scripts/
-│   ├── verify_setup.py       # checkpoint de Fase 0
-│   ├── generate_fixtures.py  # genera catálogos + 18 emails de prueba
-│   ├── seed_tablestore.py    # siembra Tablestore
-│   ├── run_demo.py           # corre los 18 emails de un tirón
-│   ├── run_scan_demo.py      # corre repricing + reorder de un tirón
-│   └── reset_runtime_data.py # limpia estado operativo (approvals/memoria/caché)
-├── data/                     # catálogos y emails generados (Fase 1)
-├── web/                      # dashboard Next.js (Fase 4) — ver web/README.md
-├── s.template.yaml           # plantilla de deploy (Serverless Devs, sin secretos)
-├── bootstrap                 # entrypoint del custom runtime de Function Compute
+│   ├── verify_setup.py       # Phase 0 checkpoint
+│   ├── generate_fixtures.py  # generates catalogs + 18 test emails
+│   ├── seed_tablestore.py    # seeds Tablestore
+│   ├── run_demo.py           # runs all 18 emails in one go
+│   ├── run_scan_demo.py      # runs repricing + reorder in one go
+│   └── reset_runtime_data.py # clears operational state (approvals/memory/cache)
+├── data/                     # generated catalogs and emails (Phase 1)
+├── web/                      # Next.js dashboard (Phase 4) — see web/README.md
+├── s.template.yaml           # deploy template (Serverless Devs, no secrets)
+├── bootstrap                 # Function Compute custom runtime entrypoint
 └── requirements.txt
 ```
 
-## Setup local
+## Local setup
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env      # rellena con tus credenciales reales
+cp .env.example .env      # fill in with your real credentials
 python -m scripts.verify_setup     # checkpoint: Qwen + Tablestore + env
 python -m scripts.generate_fixtures
 python -m scripts.seed_tablestore
-python -m scripts.run_demo         # prueba de humo: 18 emails, cubre las 3 bandas
-python -m scripts.run_scan_demo    # prueba de humo: repricing + reorder
+python -m scripts.run_demo         # smoke test: 18 emails, covers all 3 bands
+python -m scripts.run_scan_demo    # smoke test: repricing + reorder
 uvicorn app.main:app --reload
 ```
 
-## Deploy a Function Compute
+## Deploy to Function Compute
 
-El `s.yaml` real se genera desde `s.template.yaml` con `envsubst` — nunca se commitea con
-secretos inyectados.
+The real `s.yaml` is generated from `s.template.yaml` with `envsubst` — it's never
+committed with secrets injected.
 
 ```bash
 npm install -g @serverless-devs/s
-s config add                                  # tu AccessKey (RAM user, no cuenta principal)
+s config add                                  # your AccessKey (RAM user, not root account)
 
 export $(grep -v '^#' .env | xargs)
 envsubst < s.template.yaml > s.yaml
-s build --use-docker                          # instala requirements.txt en ./python
+s build --use-docker                          # installs requirements.txt into ./python
 s deploy
-s info                                         # URL pública del trigger HTTP
+s info                                         # public URL of the HTTP trigger
 ```
 
-Automatización de repricing/reorder — cron externo en tu propio servidor (no timer
-nativo de FC, más simple y confiable):
+Repricing/reorder automation — external cron on your own server (not FC's native timer
+trigger, simpler and more reliable):
 
 ```bash
-*/10 * * * * /ruta/a/scan_cron.sh >> /var/log/tradepilot-cron.log 2>&1
+*/10 * * * * /path/to/scan_cron.sh >> /var/log/tradepilot-cron.log 2>&1
 ```
 
-## Dashboard (Fase 4)
+## Dashboard (Phase 4)
 
-Ver [`web/README.md`](./web/README.md) para el deploy completo del dashboard en un VPS
-propio vía Docker + Nginx + Let's Encrypt.
+See [`web/README.md`](./web/README.md) for the full dashboard deploy on your own VPS via
+Docker + Nginx + Let's Encrypt.
 
-## Limitaciones conocidas (honestidad, no relleno)
+## Known limitations (honesty, not filler)
 
-- El endpoint de escaneo (`/agent/scan/*`) es público sin autenticación — aceptable para el
-  alcance del hackathon, no para producción real sin agregar auth.
-- "Rechazar" en la cola de aprobación solo cambia el estado — no envía automáticamente un
-  email de rechazo al comprador.
-- El matching de *línea de producto* (no de variante) sigue siendo comparación literal de
-  tokens — falla seguro (pide aclaración) cuando el nombre no coincide en otro idioma,
-  pero no traduce como sí lo hace el matching de variante.
+- The scan endpoint (`/agent/scan/*`) is public with no authentication — acceptable for
+  hackathon scope, not for real production without adding auth.
+- "Reject" in the approvals queue only changes the status — it doesn't automatically send
+  a rejection email to the buyer.
+- *Product line* matching (not variant matching) is still literal token comparison — it
+  fails safe (asks for clarification) when the name doesn't match in another language, but
+  doesn't translate the way variant matching does.
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](./LICENSE).
+MIT — see [LICENSE](./LICENSE).

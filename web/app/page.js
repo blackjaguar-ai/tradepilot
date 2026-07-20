@@ -2,37 +2,37 @@
 
 import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 
-const KIND_LABEL = { quote: "Cotización", reprice: "Reprecio", reorder: "Producción" };
+const KIND_LABEL = { quote: "Quote", reprice: "Reprice", reorder: "Production" };
 const BAND_LABEL = {
-  autopilot: "Autopiloto",
-  soft_review: "Revisión",
-  human_approval: "Retenido",
-  no_discount: "Precio lista",
-  no_change: "Sin cambio",
-  needs_clarification: "Aclaración",
-  sent: "Enviado",
-  pending_approval: "Retenido",
+  autopilot: "Autopilot",
+  soft_review: "Review",
+  human_approval: "Held",
+  no_discount: "List price",
+  no_change: "No change",
+  needs_clarification: "Clarification",
+  sent: "Sent",
+  pending_approval: "Held",
   error: "Error",
 };
 
 const PRESETS = [
   {
-    label: "Cotización simple",
+    label: "Simple quote",
     name: "Marcus Webb",
     email: "marcus.demo",
     subject: "Quote request — AeroBuds X2",
     body: (n) => `Hi, I'm looking to buy the AeroBuds X2 in Black, ${n} units. Can you send me a quote?`,
   },
   {
-    label: "Negociación agresiva",
+    label: "Aggressive negotiation",
     name: "Tomás Ferreyra",
     email: "tomas.demo",
-    subject: "Pedido grande — BoomCube Mini",
+    subject: "Large order — BoomCube Mini",
     body: (n) =>
-      `Hola, quiero pedir ${n} unidades del parlante BoomCube Mini en negro. Necesito un 22% de descuento para cerrar el negocio hoy mismo.`,
+      `Hi, I want to order ${n} units of the BoomCube Mini speaker in black. I need a 22% discount to close the deal today.`,
   },
   {
-    label: "Producto ambiguo",
+    label: "Ambiguous product",
     name: "Daniel Osei",
     email: "daniel.demo",
     subject: "Which earbuds do you have?",
@@ -49,10 +49,10 @@ function Stamp({ band }) {
 
 function StatLedger({ stats }) {
   const cells = [
-    ["Procesadas hoy", stats.processed],
-    ["Autoaprobadas", stats.autopilot],
-    ["Esperando tu firma", stats.pending],
-    ["SKUs activos", stats.skus],
+    ["Processed today", stats.processed],
+    ["Auto-approved", stats.autopilot],
+    ["Awaiting your signature", stats.pending],
+    ["Active SKUs", stats.skus],
   ];
   return (
     <div className="ledger">
@@ -68,20 +68,20 @@ function StatLedger({ stats }) {
 
 function approvalTitle(item) {
   if (item.kind === "quote") {
-    return `${item.buyer_name || "Comprador"} — ${item.product_line || ""} (${item.variant || ""})`;
+    return `${item.buyer_name || "Buyer"} — ${item.product_line || ""} (${item.variant || ""})`;
   }
   return `${item.product_line || ""} (${item.variant || ""})`;
 }
 
 function approvalMeta(item) {
   if (item.kind === "quote") {
-    return `${item.quantity ?? "?"} u. · lista $${item.list_price ?? "?"} · pide ${item.requested_discount_pct ?? "?"}%`;
+    return `${item.quantity ?? "?"} units · list $${item.list_price ?? "?"} · asking ${item.requested_discount_pct ?? "?"}%`;
   }
   if (item.kind === "reprice") {
-    return `$${item.current_price_usd} → $${item.recommended_price_usd} · desviación ${item.deviation_pct}%`;
+    return `$${item.current_price_usd} → $${item.recommended_price_usd} · deviation ${item.deviation_pct}%`;
   }
   if (item.kind === "reorder") {
-    return `stock ${item.current_stock} · producir ${item.recommended_qty} u.`;
+    return `stock ${item.current_stock} · produce ${item.recommended_qty} units`;
   }
   return "";
 }
@@ -104,10 +104,10 @@ function ApprovalCard({ item, onDecision, busy }) {
       </div>
       <div className="approval-actions">
         <button className="btn approve" disabled={busy} onClick={() => onDecision(item.approval_id, true)}>
-          Aprobar
+          Approve
         </button>
         <button className="btn reject" disabled={busy} onClick={() => onDecision(item.approval_id, false)}>
-          Rechazar
+          Reject
         </button>
       </div>
     </div>
@@ -143,7 +143,7 @@ function ApprovalFilterBar({ approvals, kindFilter, setKindFilter, langFilter, s
       ))}
 
       <select className="filter-select" value={langFilter} onChange={(e) => setLangFilter(e.target.value)}>
-        <option value="all">Todos los idiomas</option>
+        <option value="all">All languages</option>
         {languages.map((l) => (
           <option key={l} value={l}>
             {l.toUpperCase()}
@@ -152,13 +152,13 @@ function ApprovalFilterBar({ approvals, kindFilter, setKindFilter, langFilter, s
       </select>
 
       <select className="filter-select" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-        <option value="none">Sin ordenar</option>
-        <option value="qty_desc">Más unidades primero</option>
-        <option value="qty_asc">Menos unidades primero</option>
+        <option value="none">No sorting</option>
+        <option value="qty_desc">Most units first</option>
+        <option value="qty_asc">Fewest units first</option>
       </select>
 
       <span className="filter-spacer" />
-      <span className="filter-count">{visibleCount} visibles</span>
+      <span className="filter-count">{visibleCount} visible</span>
     </div>
   );
 }
@@ -167,7 +167,7 @@ function ActivityTable({ items }) {
   if (!items.length) {
     return (
       <div className="empty-state">
-        Sin actividad todavía. Manda un email de prueba arriba, o corre run_demo.py.
+        No activity yet. Send a test email above, or run run_demo.py.
       </div>
     );
   }
@@ -176,12 +176,12 @@ function ActivityTable({ items }) {
       <table className="table">
         <thead>
           <tr>
-            <th>Comprador</th>
-            <th>Idioma</th>
-            <th>Producto</th>
-            <th>Cant.</th>
-            <th>Precio final</th>
-            <th>Banda</th>
+            <th>Buyer</th>
+            <th>Language</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Final price</th>
+            <th>Band</th>
           </tr>
         </thead>
         <tbody>
@@ -213,7 +213,7 @@ function ActivityTable({ items }) {
 
 function CatalogTable({ items }) {
   if (!items.length) {
-    return <div className="empty-state">Catálogo vacío. Corre seed_tablestore.py.</div>;
+    return <div className="empty-state">Catalog is empty. Run seed_tablestore.py.</div>;
   }
   return (
     <div className="table-wrap">
@@ -221,9 +221,9 @@ function CatalogTable({ items }) {
         <thead>
           <tr>
             <th>SKU</th>
-            <th>Producto</th>
-            <th>Variante</th>
-            <th>Precio</th>
+            <th>Product</th>
+            <th>Variant</th>
+            <th>Price</th>
             <th>Stock</th>
             <th>MOQ</th>
           </tr>
@@ -283,7 +283,7 @@ function LiveIntake({ onProcessed }) {
       });
       const data = await res.json();
       if (!res.ok || data.error) {
-        setError(data.error || "El backend devolvió un error.");
+        setError(data.error || "The backend returned an error.");
       } else {
         setResult(data);
         onProcessed();
@@ -308,32 +308,32 @@ function LiveIntake({ onProcessed }) {
         <div className="intake-row">
           <input
             className="intake-input"
-            placeholder="Nombre del comprador"
+            placeholder="Buyer name"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
           <input
             className="intake-input"
-            placeholder="Email del comprador"
+            placeholder="Buyer email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
         </div>
         <input
           className="intake-input"
-          placeholder="Asunto"
+          placeholder="Subject"
           value={form.subject}
           onChange={(e) => setForm({ ...form, subject: e.target.value })}
         />
         <textarea
           className="intake-input intake-textarea"
-          placeholder="Cuerpo del email — en cualquier idioma"
+          placeholder="Email body — any language"
           rows={3}
           value={form.body}
           onChange={(e) => setForm({ ...form, body: e.target.value })}
         />
         <button className="btn approve intake-submit" type="submit" disabled={sending}>
-          {sending ? "Procesando con Qwen…" : "Enviar email al agente"}
+          {sending ? "Processing with Qwen…" : "Send email to agent"}
         </button>
       </form>
 
@@ -347,9 +347,9 @@ function LiveIntake({ onProcessed }) {
           </div>
           {result.status === "needs_clarification" ? (
             <div className="reasoning">
-              El agente necesita aclaración: {result.line_items?.[0]?.clarification_reason}
+              The agent needs clarification: {result.line_items?.[0]?.clarification_reason}
               {result.line_items?.[0]?.candidate_variants?.length > 0 &&
-                ` (opciones: ${result.line_items[0].candidate_variants.join(", ")})`}
+                ` (options: ${result.line_items[0].candidate_variants.join(", ")})`}
             </div>
           ) : (
             <>
@@ -462,14 +462,14 @@ export default function Page() {
         </div>
         <div className="header-right">
           <button className="theme-toggle" onClick={toggleTheme} type="button">
-            {theme === "dark" ? "☀ claro" : "● oscuro"}
+            {theme === "dark" ? "☀ light" : "● dark"}
           </button>
-          <button className="btn" onClick={loadAll} title="Refrescar ahora">
-            ↻ Refrescar {lastSync ? `· ${lastSync.toLocaleTimeString()}` : ""}
+          <button className="btn" onClick={loadAll} title="Refresh now">
+            ↻ Refresh {lastSync ? `· ${lastSync.toLocaleTimeString()}` : ""}
           </button>
           <span className="status-pill">
             <span className={`status-dot ${online === null ? "" : online ? "ok" : "err"}`} />
-            {online === null ? "conectando…" : online ? "agente en línea" : "sin conexión al backend"}
+            {online === null ? "connecting…" : online ? "agent online" : "backend unreachable"}
           </span>
         </div>
       </header>
@@ -478,16 +478,16 @@ export default function Page() {
 
       <section className="section">
         <div className="section-head">
-          <span className="section-title">Bandeja de entrada — envía un email de prueba</span>
-          <span className="section-sub">procesamiento en vivo, no pre-cocinado</span>
+          <span className="section-title">Inbox — send a test email</span>
+          <span className="section-sub">live processing, not pre-baked</span>
         </div>
         <LiveIntake onProcessed={loadAll} />
       </section>
 
       <section className="section">
         <div className="section-head">
-          <span className="section-title">Aduana — pendientes de tu firma</span>
-          <span className="section-sub">{approvals.length} en espera</span>
+          <span className="section-title">Customs — pending your signature</span>
+          <span className="section-sub">{approvals.length} waiting</span>
         </div>
         {approvals.length > 0 && (
           <ApprovalFilterBar
@@ -502,9 +502,9 @@ export default function Page() {
           />
         )}
         {approvals.length === 0 ? (
-          <div className="empty-state">Nada retenido ahora mismo. El agente está operando en autopiloto.</div>
+          <div className="empty-state">Nothing on hold right now. The agent is running on autopilot.</div>
         ) : visibleApprovals.length === 0 ? (
-          <div className="empty-state">Ningún pendiente coincide con los filtros activos.</div>
+          <div className="empty-state">No pending items match the active filters.</div>
         ) : (
           visibleApprovals.map((item) => (
             <ApprovalCard
@@ -519,15 +519,15 @@ export default function Page() {
 
       <section className="section">
         <div className="section-head">
-          <span className="section-title">Manifiesto de actividad</span>
-          <span className="section-sub">últimos {activity.length}</span>
+          <span className="section-title">Activity manifest</span>
+          <span className="section-sub">last {activity.length}</span>
         </div>
         <ActivityTable items={activity} />
       </section>
 
       <section className="section">
         <div className="section-head">
-          <span className="section-title">Catálogo en vivo</span>
+          <span className="section-title">Live catalog</span>
           <span className="section-sub">Tablestore · seller_a</span>
         </div>
         <CatalogTable items={catalog} />

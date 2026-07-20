@@ -22,13 +22,13 @@ const mono = IBM_Plex_Mono({
 export const metadata = {
   title: "TradePilot — Ops Console",
   description:
-    "Copiloto de operaciones cross-border para Shenzhen Aurora Audio Co. Cotización, repricing y reorden con aprobación humana.",
+    "Cross-border ops copilot for Shenzhen Aurora Audio Co. Quoting, repricing, and reordering with human-in-the-loop approval.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="es"
+      lang="en"
       suppressHydrationWarning
       className={`${display.variable} ${body.variable} ${mono.variable}`}
     >

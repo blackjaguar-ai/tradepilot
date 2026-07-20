@@ -1,97 +1,97 @@
-# TradePilot — Dashboard (Fase 4)
+# TradePilot — Dashboard (Phase 4)
 
-Consola de operaciones para TradePilot: cola de aprobaciones (cotización / reprecio / reorden),
-manifiesto de actividad, y catálogo en vivo — todo leyendo del backend real en Alibaba Cloud
+Operations console for TradePilot: approvals queue (quote / reprice / reorder), activity
+manifest, and a live catalog view — all reading from the real backend on Alibaba Cloud
 Function Compute + Tablestore.
 
-Diseño: torre de control portuaria / manifiesto de aduana. El "sello" (`.stamp`) marca cada
-decisión — autopiloto, revisión, o retenido — como si fuera un timbre de aduana real.
+Design: port control tower / customs manifest. The "stamp" (`.stamp`) marks every decision
+— autopilot, review, or held — like a real customs seal.
 
-## Arquitectura
+## Architecture
 
 ```
-Navegador → tradepilot.blackjaguar.dev (Nginx, TLS)
-              → contenedor tradepilot_frontend (Next.js, puerto 3000 interno)
-                  → /api/proxy/*  (server-side, sin CORS)
-                      → Function Compute (Alibaba Cloud) — el backend real
+Browser → tradepilot.blackjaguar.dev (Nginx, TLS)
+              → tradepilot_frontend container (Next.js, internal port 3000)
+                  → /api/proxy/*  (server-side, no CORS)
+                      → Function Compute (Alibaba Cloud) — the real backend
 ```
 
-El navegador NUNCA llama directo a la URL de Function Compute — todo pasa por las rutas
-`/api/proxy/*` de Next.js, que corren en el servidor (Node), no en el navegador. Así evitamos
-tener que configurar CORS en el backend de FastAPI.
+The browser never calls the Function Compute URL directly — everything goes through
+Next.js's `/api/proxy/*` routes, which run on the server (Node), not in the browser. That's
+how we avoid needing to configure CORS on the FastAPI backend.
 
-## Deploy local (prueba antes de subir al VPS)
+## Local deploy (test before pushing to the VPS)
 
 ```bash
 npm install
-cp .env.example .env   # y confirma que BACKEND_URL apunta a tu FC real
+cp .env.example .env   # confirm BACKEND_URL points to your real FC deployment
 npm run build
 npm start
 # -> http://localhost:3000
 ```
 
-## Deploy en el VPS — 3 pasos, en orden
+## Deploy on the VPS — 3 steps, in order
 
-### Paso 1 — sube el proyecto
+### Step 1 — upload the project
 
 ```bash
 mkdir -p /opt/black/tradepilot/web
-# copia todo el contenido de esta carpeta ahí (rsync, scp, git clone, lo que uses)
+# copy this folder's contents there (rsync, scp, git clone, whatever you use)
 cd /opt/black/tradepilot/web
 cp .env.example .env
-nano .env   # confirma BACKEND_URL
+nano .env   # confirm BACKEND_URL
 docker compose up -d --build
 ```
 
-Verifica que el contenedor corre y está en la red correcta:
+Confirm the container is running and on the right network:
 ```bash
 docker ps | grep tradepilot_frontend
 docker network inspect escai-network | grep tradepilot_frontend
 ```
 
-### Paso 2 — Nginx, PASO A (antes del certificado)
+### Step 2 — Nginx, STEP A (before the certificate)
 
-Copia `nginx-for-vps/tradepilot.conf.STEP_A` como:
+Copy `nginx-for-vps/tradepilot.conf.STEP_A` to:
 ```
 /opt/shared/web/nginx/conf.d/tradepilot.conf
 ```
 
 ```bash
-docker exec escai-nginx nginx -t          # valida la config antes de recargar
+docker exec escai-nginx nginx -t          # validate the config before reloading
 docker exec escai-nginx nginx -s reload
 cd /opt/shared/web
 docker compose run --rm certbot certonly --webroot -w /var/www/certbot -d tradepilot.blackjaguar.dev
 ```
 
-Confirma que certbot terminó con éxito (busca "Successfully received certificate").
+Confirm certbot finished successfully (look for "Successfully received certificate").
 
-### Paso 3 — Nginx, PASO B (con el certificado ya emitido)
+### Step 3 — Nginx, STEP B (with the certificate issued)
 
-Reemplaza el CONTENIDO de `/opt/shared/web/nginx/conf.d/tradepilot.conf` por el de
-`nginx-for-vps/tradepilot.conf.STEP_B` (el que ya incluye el bloque 443 + proxy_pass).
+Replace the CONTENTS of `/opt/shared/web/nginx/conf.d/tradepilot.conf` with
+`nginx-for-vps/tradepilot.conf.STEP_B` (which already includes the 443 block + proxy_pass).
 
 ```bash
 docker exec escai-nginx nginx -t
 docker exec escai-nginx nginx -s reload
 ```
 
-### Verificación final
+### Final check
 
 ```bash
 curl -I https://tradepilot.blackjaguar.dev
 ```
 
-Debería responder `200 OK`. Abre `https://tradepilot.blackjaguar.dev` en el navegador — deberías
-ver el dashboard con datos reales del catálogo, actividad, y aprobaciones pendientes.
+Should return `200 OK`. Open `https://tradepilot.blackjaguar.dev` in a browser — you
+should see the dashboard with real data from the catalog, activity, and pending approvals.
 
-## Variables de entorno
+## Environment variables
 
-| Variable | Qué es |
+| Variable | What it is |
 |---|---|
-| `BACKEND_URL` | URL pública de tu función en Function Compute (la que te dio `s info`) |
+| `BACKEND_URL` | Public URL of your Function Compute deployment (the one `s info` gave you) |
 
-## Notas de seguridad no negociables
+## Non-negotiable security notes
 
-- **NO** subas `certbot/conf/` (llaves privadas TLS) a ningún repo Git público.
-- El `.env` de este proyecto no tiene secretos sensibles (`BACKEND_URL` es pública, no una
-  credencial), pero igual está en `.gitignore` por hábito.
+- **Do NOT** push `certbot/conf/` (TLS private keys) to any public Git repo.
+- This project's `.env` has no sensitive secrets (`BACKEND_URL` is public, not a
+  credential), but it's still in `.gitignore` out of habit.
