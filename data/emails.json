@@ -1,0 +1,182 @@
+[
+  {
+    "email_id": "EMAIL-001",
+    "lang": "en",
+    "country": "US",
+    "name": "Marcus Webb",
+    "subject": "Quote request — AeroBuds X2",
+    "body": "Hi, I'm looking to buy TWS earbuds, the AeroBuds X2 model, in black. Can you send me a quote for 150 units? What's your best price?",
+    "discount_ask_pct": 0,
+    "note": "hero flow: petición directa, sin regateo"
+  },
+  {
+    "email_id": "EMAIL-002",
+    "lang": "es",
+    "country": "MX",
+    "name": "Camila Reyes",
+    "subject": "Cotización audífonos inalámbricos",
+    "body": "Buenas, necesito cotizar los audífonos AeroBuds X2 en color blanco, unas 200 unidades. ¿Manejan algún descuento por volumen?",
+    "discount_ask_pct": 5,
+    "note": "descuento leve, dentro de autopiloto"
+  },
+  {
+    "email_id": "EMAIL-003",
+    "lang": "zh",
+    "country": "CN",
+    "name": "Li Wei",
+    "subject": "询价 - 蓝牙耳机",
+    "body": "你好，我想采购 AeroBuds X2 蓝牙耳机，玫瑰金色，数量300个。如果订购300个，价格能优惠多少？",
+    "discount_ask_pct": 7,
+    "note": "autopiloto, borde superior de la banda"
+  },
+  {
+    "email_id": "EMAIL-004",
+    "lang": "fr",
+    "country": "FR",
+    "name": "Élodie Marchand",
+    "subject": "Demande de devis — chargeurs GaN",
+    "body": "Bonjour, je souhaite commander le chargeur PowerNode 65W, prise EU, 100 unités. Pouvez-vous m'envoyer un devis avec le meilleur prix possible ?",
+    "discount_ask_pct": 3,
+    "note": "autopiloto"
+  },
+  {
+    "email_id": "EMAIL-005",
+    "lang": "de",
+    "country": "DE",
+    "name": "Jonas Richter",
+    "subject": "Anfrage: Power Bank VoltCell",
+    "body": "Hallo, ich interessiere mich für die VoltCell 20000mAh Powerbank in Schwarz. Wir bräuchten 250 Stück. Ist ein Rabatt von 12% bei dieser Menge möglich?",
+    "discount_ask_pct": 12,
+    "note": "revisión suave, 8-15%"
+  },
+  {
+    "email_id": "EMAIL-006",
+    "lang": "pt",
+    "country": "BR",
+    "name": "Rafael Souza",
+    "subject": "Orçamento — fones TWS",
+    "body": "Olá, gostaria de um orçamento para os fones AeroBuds X2, cor grafite, quantidade de 180 unidades. Vocês conseguem um desconto de 10%?",
+    "discount_ask_pct": 10,
+    "note": "revisión suave"
+  },
+  {
+    "email_id": "EMAIL-007",
+    "lang": "en",
+    "country": "GB",
+    "name": "Priya Shah",
+    "subject": "Bulk order — screen protectors",
+    "body": "We'd like to order GlassGuard 9H screen protectors for iPhone 16 Pro, 500 units. Given the volume, we're expecting a 20% discount off list price.",
+    "discount_ask_pct": 20,
+    "note": "aprobación humana obligatoria, >15%"
+  },
+  {
+    "email_id": "EMAIL-008",
+    "lang": "es",
+    "country": "AR",
+    "name": "Tomás Ferreyra",
+    "subject": "Pedido grande - parlantes bluetooth",
+    "body": "Hola, quiero pedir 400 unidades del parlante BoomCube Mini en color negro. Necesitamos un 18% de descuento para que el negocio nos cierre, si no compramos a otro proveedor.",
+    "discount_ask_pct": 18,
+    "note": "aprobación humana + presión de competencia"
+  },
+  {
+    "email_id": "EMAIL-009",
+    "lang": "en",
+    "country": "CA",
+    "name": "Daniel Osei",
+    "subject": "Which earbuds do you have?",
+    "body": "Hi, I saw your AeroBuds listing but I'm not sure which version — is there a noise cancelling one? Can you tell me the difference and pricing?",
+    "discount_ask_pct": null,
+    "note": "AMBIGUO a propósito: X2 estándar vs X2 Pro ANC, el agente debe desambiguar antes de cotizar"
+  },
+  {
+    "email_id": "EMAIL-010",
+    "lang": "ar",
+    "country": "AE",
+    "name": "Yousef Al-Amin",
+    "subject": "طلب عرض سعر - سماعات لاسلكية",
+    "body": "مرحباً، أرغب بشراء سماعات AeroBuds X2 باللون الأزرق الداكن، الكمية 120 قطعة. هل يمكن الحصول على أفضل سعر؟",
+    "discount_ask_pct": 4,
+    "note": "autopiloto, prueba multilingüe RTL"
+  },
+  {
+    "email_id": "EMAIL-011",
+    "lang": "en",
+    "country": "AU",
+    "name": "Chloe Bennett",
+    "subject": "Cable pricing",
+    "body": "Need a quote on the USB-C FlexLink 100W cable, 2m length, 1000 units. What's your lead time and best unit price?",
+    "discount_ask_pct": 0,
+    "note": "hero flow, sin negociación, volumen alto"
+  },
+  {
+    "email_id": "EMAIL-012",
+    "lang": "es",
+    "country": "CO",
+    "name": "Valentina Prieto",
+    "subject": "Consulta fundas para celular",
+    "body": "Buenos días, ¿tienen fundas transparentes para iPhone 16? Necesito 300 unidades, ¿cuál es el precio y si hacen descuento?",
+    "discount_ask_pct": 6,
+    "note": "autopiloto"
+  },
+  {
+    "email_id": "EMAIL-013",
+    "lang": "zh",
+    "country": "SG",
+    "name": "Chen Jiaming",
+    "subject": "询价 - 车载充电器",
+    "body": "你好，请问 DriveVolt 45W 车载充电器有货吗？我们需要150个，如果长期合作能给多少折扣？",
+    "discount_ask_pct": 9,
+    "note": "revisión suave, producto exclusivo del vendedor C (chequea que el agente NO lo confunda con catálogo propio)"
+  },
+  {
+    "email_id": "EMAIL-014",
+    "lang": "en",
+    "country": "NG",
+    "name": "Adaeze Okafor",
+    "subject": "Competitor is offering lower price",
+    "body": "I got a quote from another supplier for the VoltCell power bank at $9.50/unit for 300 units. Can you match or beat that price?",
+    "discount_ask_pct": null,
+    "note": "negociación basada en precio de competencia — prueba directa del uso de datos B/C como señal de mercado"
+  },
+  {
+    "email_id": "EMAIL-015",
+    "lang": "de",
+    "country": "AT",
+    "name": "Sophie Lang",
+    "subject": "Anfrage Kopfhörer SoundMax",
+    "body": "Guten Tag, ich benötige 100 Stück SoundMax H7 Kopfhörer in Silber. Bitte senden Sie mir ein Angebot.",
+    "discount_ask_pct": 0,
+    "note": "hero flow simple"
+  },
+  {
+    "email_id": "EMAIL-016",
+    "lang": "pt",
+    "country": "PT",
+    "name": "Miguel Andrade",
+    "subject": "Pedido protetores de ecrã",
+    "body": "Boa tarde, preciso de 250 protetores de ecrã GlassGuard para Galaxy S26. Podem fazer 15% de desconto?",
+    "discount_ask_pct": 15,
+    "note": "límite exacto de la banda de revisión suave"
+  },
+  {
+    "email_id": "EMAIL-017",
+    "lang": "fr",
+    "country": "BE",
+    "name": "Antoine Dubois",
+    "subject": "Devis powerbank + câbles",
+    "body": "Bonjour, je voudrais un devis combiné : 150 powerbanks VoltCell noires et 150 câbles FlexLink 1m. Meilleur prix pour les deux ensemble ?",
+    "discount_ask_pct": null,
+    "note": "multi-producto en un solo email — prueba de extracción de más de un SKU"
+  },
+  {
+    "email_id": "EMAIL-018",
+    "lang": "en",
+    "country": "IE",
+    "name": "Grace O'Sullivan",
+    "subject": "Reorder — same as last time",
+    "body": "Hi, we'd like to reorder the AeroBuds X2 in Black, same quantity as our usual order (200 units). No need to requote if price is stable.",
+    "discount_ask_pct": null,
+    "note": "dispara el trigger de reorder/memoria de comprador recurrente (subflujo 3)"
+  }
+]
