@@ -195,6 +195,7 @@ def _run_pipeline(idem_key: str, email_id: str, buyer_name: str, buyer_email: st
 
     if status == "pending_approval":
         store.enqueue_approval(f"{idem_key}-approval", {
+            "kind": "quote",
             "email_id": email_id,
             "buyer_name": buyer_name,
             "buyer_email": buyer_email,

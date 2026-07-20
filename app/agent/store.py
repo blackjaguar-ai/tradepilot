@@ -62,6 +62,19 @@ def get_buyer_memory(buyer_email: str) -> dict | None:
 
 
 # ── cola de aprobación humana ───────────────────────────────────────
+def get_approval(approval_id: str) -> dict | None:
+    try:
+        from app.clients.tablestore import get_tablestore
+
+        item = get_tablestore().get_item(APPROVALS_TABLE, {"approval_id": approval_id})
+        if item is not None:
+            return item
+    except Exception:
+        pass
+    data = _read_local(_LOCAL_APPROVALS_FILE)
+    return data.get(approval_id)
+
+
 def enqueue_approval(approval_id: str, record: dict) -> None:
     record = {**record, "status": "pending", "created_at": int(time.time())}
     try:

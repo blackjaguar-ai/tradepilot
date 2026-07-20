@@ -49,3 +49,16 @@ resources:
             methods:
               - GET
               - POST
+      # NOTA sobre repricing/reorder (Fase 3, subflujos 2 y 3):
+      # Los endpoints POST /agent/scan/repricing y POST /agent/scan/reorder ya
+      # existen y funcionan vía HTTP. Para dispararlos automáticamente cada
+      # ciertas horas, la opción más simple y confiable a esta altura del
+      # hackathon es un cron EXTERNO (ej. crontab en tu VPS) pegándole a la
+      # URL pública de FC:
+      #
+      #   0 */6 * * *  curl -X POST https://<tu-url-fc>/agent/scan/repricing
+      #   0 3 * * *    curl -X POST https://<tu-url-fc>/agent/scan/reorder
+      #
+      # Alibaba FC también soporta triggerType: timer nativo, pero el contrato
+      # exacto de cómo entrega el evento a un custom runtime no está verificado
+      # aquí — mejor no apostarle a algo sin probar a horas del deadline.

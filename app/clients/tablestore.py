@@ -51,12 +51,17 @@ class TablestoreClient:
     # ── helpers genéricos para el agente (Fase 2) ──────────────────────
     def put_item(self, table: str, pk: dict, attrs: dict) -> None:
         """Inserta/actualiza una fila. pk debe respetar el orden del schema de la tabla.
-        Los valores None se omiten: Tablestore es un wide-column store, "sin valor" se
-        representa NO escribiendo la columna, no mandando null (el SDK lo rechaza).
+
+        Dos protecciones automáticas para cualquier caller, presente o futuro:
+        - Valores None se omiten (Tablestore no acepta null en columnas de atributo).
+        - Claves que coincidan con la primary key se omiten de attrs (Tablestore
+          rechaza una columna de atributo con el mismo nombre que una columna de PK
+          — pasa fácil si primero LEES una fila con get_item, que mezcla PK+atributos
+          por conveniencia, y luego reescribes ese dict tal cual).
         """
         from tablestore import Row, Condition, RowExistenceExpectation
 
-        clean_attrs = {k: v for k, v in attrs.items() if v is not None}
+        clean_attrs = {k: v for k, v in attrs.items() if v is not None and k not in pk}
         row = Row(list(pk.items()), list(clean_attrs.items()))
         self._client.put_row(table, row, Condition(RowExistenceExpectation.IGNORE))
 

@@ -93,6 +93,26 @@ def resolve_variant(candidates: list[dict], variant_query: str | None) -> tuple[
     return None, True, [c["variant"] for c in candidates]
 
 
+def update_price(seller_id: str, sku_id: str, new_price: float) -> None:
+    """Escribe el nuevo precio a Tablestore y limpia el caché en memoria.
+
+    IMPORTANTE: put_row en Tablestore reemplaza la fila COMPLETA, no hace merge
+    parcial (a diferencia de un UPDATE de SQL). Por eso leemos la fila existente
+    primero y solo pisamos el campo de precio — si no, perderíamos product_line,
+    variant, stock_qty y el resto de columnas del SKU.
+
+    El caché (@lru_cache en load_catalog) también se limpia: si no, el resto
+    del proceso seguiría viendo el precio viejo hasta reiniciar.
+    """
+    from app.clients.tablestore import get_tablestore
+
+    ots = get_tablestore()
+    pk = {"seller_id": seller_id, "sku_id": sku_id}
+    existing = ots.get_item(CATALOG_TABLE, pk) or {}
+    ots.put_item(CATALOG_TABLE, pk, {**existing, "unit_price_usd": new_price})
+    load_catalog.cache_clear()
+
+
 def market_benchmark(product_line: str, competitor_seller_ids: tuple[str, ...] = ("seller_b", "seller_c")) -> dict:
     """Precio min/max/prom de la misma línea de producto en catálogos competidores.
     Esta es la señal de mercado real que alimenta la negociación — no un número inventado.

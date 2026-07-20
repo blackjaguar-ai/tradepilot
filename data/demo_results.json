@@ -39,7 +39,7 @@
       "requires_human_approval": false,
       "reasoning": "Sin solicitud de descuento; se cotiza a precio de lista."
     },
-    "reply_draft": "Thank you for your inquiry!  \n\nWe’re pleased to confirm your quotation for 150 units of the **TWS Earbuds AeroBuds X2 (Black)** at the list price of **USD 12.02 per unit**, totaling **USD 1,803.00**.  \n\nThis price is competitive within the current market range (USD 8.64–14.43) and reflects our standard terms for this order volume. No discount applies, as no special pricing request was submitted.  \n\nShould you wish to proceed or have any questions about payment, lead time, or logistics, feel free to let me know—I’m happy to assist.  \n\nBest regards,  \nSales Team  \nShenzhen Aurora Audio Co.",
+    "reply_draft": "Thank you for your inquiry!  \n\nWe’re pleased to confirm your quotation for 150 units of the **TWS Earbuds AeroBuds X2 (Black, SKU: SELLER_A-001)** at the list price of **USD 12.02 per unit**, totaling **USD 1,803.00**.  \n\nThis is our standard wholesale price — no discount applies, as no special pricing request was submitted. The quoted price is competitive within the current market range (USD 8.64–14.43) and reflects our commitment to quality, reliability, and seamless B2B partnership.  \n\nShould you wish to proceed or need support with order placement, logistics, or documentation, feel free to let me know — I’m happy to assist.  \n\nWarm regards,  \nSales Team  \nShenzhen Aurora Audio Co.",
     "status": "sent",
     "error": null
   },
@@ -83,7 +83,7 @@
       "requires_human_approval": false,
       "reasoning": "Descuento solicitado explícitamente por el comprador (5.0%) está dentro de la banda autopilot (≤8.0%). Aprobado automáticamente. Referencia de mercado (competencia): promedio $11.54, rango $8.64-$14.43."
     },
-    "reply_draft": "¡Hola!  \n\nGracias por su solicitud. Confirmamos la aprobación automática del descuento del 5 % solicitado para los **AeroBuds X2 (blanco)**.  \n\nEl precio unitario final es de **USD 9,36** (antes: USD 9,85).  \nCantidad: 200 unidades.  \n\nQuedamos atentos para procesar su orden o resolver cualquier duda adicional. ¡Estamos encantados de seguir apoyándolos!  \n\nSaludos cordiales,  \nEquipo de Ventas  \nShenzhen Aurora Audio Co.",
+    "reply_draft": "¡Hola!  \n\nGracias por su solicitud. Confirmamos que su descuento del 5 % ha sido aprobado automáticamente. El precio unitario final para los **AeroBuds X2 (blanco)** es de **USD 9,36** por unidad.  \n\nPara una orden de **200 unidades**, el valor total sería de **USD 1.872,00** (excluyendo flete y otros cargos aplicables).  \n\nQuedamos atentos a su confirmación para proceder con la emisión de la orden de compra y los siguientes pasos logísticos.  \n\n¡Quedamos a su disposición para cualquier consulta!  \nSaludos cordiales,  \nEquipo de Ventas  \nShenzhen Aurora Audio Co.",
     "status": "sent",
     "error": null
   },
@@ -127,7 +127,7 @@
       "requires_human_approval": false,
       "reasoning": "Sin solicitud de descuento; se cotiza a precio de lista."
     },
-    "reply_draft": "¡Hola!  \n\nGracias por su consulta.  \n\nPara los **TWS Earbuds AeroBuds X2 (Rose Gold)**, SKU: SELLER_A-004, confirmamos su cotización a precio de lista:  \n✅ **USD 8,67 por unidad**  \n✅ **Cantidad: 300 unidades**  \n✅ **Precio total: USD 2.601,00**  \n\nEste precio está alineado con nuestro rango de mercado (USD 8,64 – 14,43) y no aplica descuento, tal como se indica en su solicitud.  \n\nQuedamos atentos para coordinar los siguientes pasos: pedido formal, términos de pago y logística. ¡Estamos encantados de apoyarle!  \n\nSaludos cordiales,  \nEquipo de Ventas  \nShenzhen Aurora Audio Co.",
+    "reply_draft": "Estimado cliente,\n\nGracias por su consulta. Para el modelo **TWS Earbuds AeroBuds X2 (color Rose Gold)**, el precio unitario final es de **USD 8,67** por unidad (precio de lista, sin descuento).  \n\nSu pedido de **300 unidades** queda confirmado a este precio.  \n\nQuedamos atentos para coordinar los siguientes pasos: documentación comercial, términos de pago y logística.  \n\n¡Es un placer trabajar con usted!  \n\nSaludos cordiales,  \nEquipo de Ventas  \nShenzhen Aurora Audio Co.",
     "status": "sent",
     "error": null
   },
@@ -171,7 +171,7 @@
       "requires_human_approval": false,
       "reasoning": "Descuento solicitado explícitamente por el comprador (3.0%) está dentro de la banda autopilot (≤8.0%). Aprobado automáticamente. Referencia de mercado (competencia): promedio $8.82, rango $6.14-$11.51."
     },
-    "reply_draft": "Bonjour,  \n\nMerci pour votre demande. Nous sommes ravis de vous confirmer que votre demande de remise de 3 % a été approuvée automatiquement.  \n\nLe prix unitaire final pour le chargeur GaN PowerNode 65W (prise UE, référence SELLER_A-017) est fixé à **9,08 USD** (prix net, hors frais d’expédition et taxes locales).  \nPour une commande de 100 unités, le montant total s’élève à **908,00 USD**.  \n\nN’hésitez pas à nous faire savoir si vous souhaitez procéder à la commande ou si vous avez besoin d’un bon de commande officiel ou de documents complémentaires.  \n\nÀ votre disposition pour toute question,  \nCordialement,  \nÉquipe commerciale  \nShenzhen Aurora Audio Co.",
+    "reply_draft": "Bonjour,  \n\nMerci pour votre demande. Nous sommes ravis de vous confirmer que votre demande de remise de 3 % a été approuvée automatiquement.  \n\nLe prix unitaire final pour le chargeur mural GaN PowerNode 65W (fiche UE, référence SELLER_A-017) est donc fixé à **9,08 USD HT** pour une commande de 100 unités.  \n\nN’hésitez pas à nous faire savoir si vous souhaitez procéder à la commande ou si vous avez besoin d’informations complémentaires (conditions de paiement, délais logistiques, etc.). Nous restons à votre disposition pour vous accompagner dans les meilleures conditions.  \n\nBien cordialement,  \nL’équipe commerciale  \nShenzhen Aurora Audio Co.",
     "status": "sent",
     "error": null
   },
@@ -215,7 +215,7 @@
       "requires_human_approval": false,
       "reasoning": "Descuento solicitado explícitamente por el comprador (12.0%) está en banda soft_review (8.0-15.0%). Se responde automáticamente pero queda marcado para auditoría posterior. Referencia de mercado (competencia): promedio $14.69, rango $10.41-$18.97."
     },
-    "reply_draft": "Sehr geehrter Kunde,\n\nvielen Dank für Ihre Anfrage. Wir bestätigen gerne den von Ihnen gewünschten Rabatt von 12 % auf den Power Bank VoltCell 20000mAh (Schwarz, Artikelnummer: SELLER_A-021).  \n\nDer endgültige Einzelpreis beträgt damit **13,90 USD pro Stück** (statt 15,79 USD).  \nFür Ihre Bestellmenge von **250 Stück** ergibt sich ein Gesamtbetrag von **3.475,00 USD**.\n\nGerne unterstützen wir Sie bei der weiteren Abwicklung – z. B. mit einer offiziellen Proforma-Rechnung oder Logistikinformationen.  \n\nMit freundlichen Grüßen  \nIhr Aurora Audio Vertriebsteam",
+    "reply_draft": "¡Gracias por su solicitud!\n\nConfirmamos que su pedido de 250 unidades del Power Bank VoltCell 20000mAh (negro, SKU: SELLER_A-021) ha sido aprobado con un descuento del 12 %, lo que establece un precio unitario final de **USD 13,90**.\n\nEste precio se encuentra dentro del rango competitivo actual del mercado (USD 10,41 – USD 18,97), con un promedio de USD 14,69.\n\n¿Desea proceder con la emisión de la orden de compra o necesita apoyo con los documentos comerciales (proforma, especificaciones técnicas, etc.)? Estoy aquí para ayudarle en cada paso.\n\nSaludos cordiales,  \nSu equipo de ventas  \nShenzhen Aurora Audio Co.",
     "status": "sent",
     "error": null
   },
@@ -259,7 +259,7 @@
       "requires_human_approval": false,
       "reasoning": "Descuento solicitado explícitamente por el comprador (10.0%) está en banda soft_review (8.0-15.0%). Se responde automáticamente pero queda marcado para auditoría posterior. Referencia de mercado (competencia): promedio $11.54, rango $8.64-$14.43."
     },
-    "reply_draft": "Olá,  \n\nAgradecemos sua solicitação e confirmamos a aprovação do desconto de 10% para o item **AeroBuds X2 (Graphite)** — SKU: SELLER_A-005.  \n\nO preço unitário final ficou em **USD 10,15** (antes: USD 11,28), válido para o lote de **180 unidades**.  \n\nEste valor está alinhado com a faixa competitiva de mercado (USD 8,64–14,43) e já está liberado para prosseguimento. Caso deseje avançar com a ordem ou precisar de suporte na emissão da proforma, é só avisar!  \n\nAtenciosamente,  \nEquipe de Vendas  \nShenzhen Aurora Audio Co.",
+    "reply_draft": "Olá,  \n\nAgradecemos sua solicitação e confirmamos a aprovação do desconto de **10%** para o item **TWS Earbuds AeroBuds X2 (Graphite)**, conforme solicitado.  \n\n✅ Preço unitário final: **USD 10,15**  \n✅ Quantidade: **180 unidades**  \n✅ Referência de mercado: média de USD 11,54 (faixa entre USD 8,64 – USD 14,43)  \n\nEstamos preparando sua cotação formal com todos os detalhes comerciais e logísticos. Caso tenha alguma dúvida ou precise de informações adicionais, é só avisar!  \n\nAtenciosamente,  \nEquipe Comercial  \nShenzhen Aurora Audio Co.",
     "status": "sent",
     "error": null
   },
@@ -303,7 +303,7 @@
       "requires_human_approval": true,
       "reasoning": "Descuento solicitado explícitamente por el comprador (20.0%) supera el máximo autogestionable (15.0%). Requiere aprobación humana antes de responder. Referencia de mercado (competencia): promedio $1.44, rango $0.96-$1.93."
     },
-    "reply_draft": "Thank you for your inquiry and for sharing your requested discount of 20%.  \n\nI’ve reviewed your request and, as it exceeds our standard approval threshold, I’m currently escalating it to our pricing team for final review. We’ll assess it carefully—taking into account market benchmarks and your order volume—and get back to you with a confirmed decision within 24–48 hours.  \n\nIn the meantime, please don’t hesitate to reach out if you need any product or logistics details. We’re happy to help.  \n\nBest regards,  \nSales Team  \nShenzhen Aurora Audio Co.",
+    "reply_draft": "Thank you for your inquiry and for sharing your request for a 20% discount on the Screen Protector GlassGuard 9H (iPhone 16, 500 pcs).  \n\nWe’ve reviewed your request carefully. As this discount exceeds our standard authorization limit, it requires internal review by our pricing team. We’re currently evaluating it and will provide you with a confirmed response — including final pricing and availability — within 24 business hours.  \n\nIn the meantime, please don’t hesitate to reach out if you need any additional product details or support. We appreciate your partnership and look forward to moving forward together.  \n\nBest regards,  \nSales Team  \nShenzhen Aurora Audio Co.",
     "status": "pending_approval",
     "error": null
   },
@@ -347,7 +347,7 @@
       "requires_human_approval": true,
       "reasoning": "Descuento solicitado explícitamente por el comprador (18.0%) supera el máximo autogestionable (15.0%). Requiere aprobación humana antes de responder. Referencia de mercado (competencia): promedio $12.19, rango $10.21-$14.17."
     },
-    "reply_draft": "Hola [Nombre del comprador],\n\nGracias por su solicitud y por su interés en el **Bluetooth Speaker BoomCube Mini (Black)**.\n\nHemos revisado su solicitud de un descuento del 18 % y, dado que supera nuestro límite de autorización automática (15 %), necesitamos someterla a revisión por parte de nuestro equipo comercial. Estamos evaluando su caso con atención, considerando también el contexto de mercado y la competitividad del precio.\n\nLe responderemos con una confirmación definitiva en las próximas 24–48 horas hábiles.\n\nQuedamos atentos a cualquier otra consulta. ¡Es un placer trabajar con usted!\n\nSaludos cordiales,  \nEquipo de Ventas  \nShenzhen Aurora Audio Co.",
+    "reply_draft": "Hola [Nombre del comprador],\n\nGracias por su solicitud y por su interés en nuestros altavoces Bluetooth BoomCube Mini (referencia: A-011, color negro).\n\nHemos revisado su solicitud de un descuento del 18 % y, dado que supera nuestro límite de autorización automática (15 %), necesitamos someterla a revisión interna por parte de nuestro equipo comercial. Estamos evaluando su caso con atención, considerando también el contexto de precios de mercado para este producto.\n\nLe responderemos con una confirmación definitiva en las próximas 24–48 horas hábiles.\n\nQuedamos atentos a cualquier otra consulta. ¡Es un placer trabajar con usted!\n\nSaludos cordiales,  \nEquipo de Ventas  \nShenzhen Aurora Audio Co.",
     "status": "pending_approval",
     "error": null
   },
@@ -434,7 +434,7 @@
       "requires_human_approval": false,
       "reasoning": "Sin solicitud de descuento; se cotiza a precio de lista."
     },
-    "reply_draft": "مرحبًا،  \n\nشكرًا لطلبكم. نسعد بتقديم عرض أسعار لسماعات الأذن اللاسلكية TWS AeroBuds X2 (اللون أزرق كحلي)، بسعر وحدة نهائي قدره **12.22 دولار أمريكي** للقطعة الواحدة.  \nالكمية المطلوبة: ١٢٠ قطعة.  \n\nلا يشمل العرض أي خصم، حيث يتم تطبيق سعر القائمة القياسي.  \n\nإذا كانت لديكم أي استفسارات إضافية أو رغبة في المتابعة بالطلب، يسعدنا دعمكم في أي وقت.  \n\nمع أطيب التحيات،  \nفريق المبيعات  \nشينتشن أورورا أوديو المحدودة",
+    "reply_draft": "مرحبًا،  \n\nشكرًا لطلبك. نسعد بتقديم عرض أسعار لسماعات الأذن اللاسلكية من طراز AeroBuds X2 (اللون الأزرق الداكن)، بسعر وحدة نهائي قدره **12.22 دولار أمريكي** (بدون خصم)، وبكمية إجمالية تبلغ ١٢٠ قطعة.  \n\nهذا السعر يُطبَّق وفق سعر القائمة القياسي، وهو ضمن النطاق السوقي التنافسي (٨.٦٤–١٤.٤٣ دولار أمريكي للوحدة).  \n\nإذا كانت لديك أي استفسارات إضافية أو كنت ترغب في المضي قدمًا في إصدار أمر الشراء، فلا تتردد في إعلامي — وسأكون سعيدًا بمساعدتك في الإجراءات التالية.  \n\nمع أطيب التحيات،  \nفريق المبيعات  \nShenzhen Aurora Audio Co.",
     "status": "sent",
     "error": null
   },
@@ -478,7 +478,7 @@
       "requires_human_approval": false,
       "reasoning": "Descuento solicitado explícitamente por el comprador (6.0%) está dentro de la banda autopilot (≤8.0%). Aprobado automáticamente. Referencia de mercado (competencia): promedio $2.8, rango $2.01-$3.59."
     },
-    "reply_draft": "Hi [Buyer's Name],\n\nThank you for your inquiry — we’re pleased to confirm your requested 6% discount is approved.\n\nFor the **USB-C Cable FlexLink 100W (2m)**, your final unit price is **USD $2.27** (ex-works Shenzhen), for an order of 1,000 units.\n\nLet us know if you’d like to proceed with a proforma invoice or have any questions — we’re happy to help.\n\nBest regards,  \nSales Team  \nShenzhen Aurora Audio Co.",
+    "reply_draft": "Hi [Buyer's Name],  \n\nThank you for your inquiry! We’re pleased to confirm your requested 6% discount is approved automatically.  \n\nFor the **USB-C Cable FlexLink 100W (2m)**, your final unit price is **USD $2.27** (ex-works Shenzhen).  \nOrder quantity: **1,000 pcs**  \nTotal value: **USD $2,270.00**  \n\nLet me know if you’d like to proceed with a proforma invoice or have any questions — happy to help!  \n\nBest regards,  \n[Your Name]  \nSales Representative  \nShenzhen Aurora Audio Co.",
     "status": "sent",
     "error": null
   },
@@ -596,7 +596,7 @@
       "requires_human_approval": true,
       "reasoning": "Descuento inferido de precio de competencia citado ($9.5) (39.84%) supera el máximo autogestionable (15.0%). Requiere aprobación humana antes de responder. Referencia de mercado (competencia): promedio $14.69, rango $10.41-$18.97."
     },
-    "reply_draft": "Thank you for your inquiry and for sharing the competitive reference pricing.\n\nWe’ve reviewed your requested discount of 39.84% on the Power Bank VoltCell 20000mAh (Black, SKU: SELLER_A-021), and while we appreciate the market context you provided, this request exceeds our standard authorization threshold and requires internal review by our pricing team.\n\nWe’re currently evaluating your proposal and will provide a final response within 24–48 business hours.\n\nIn the meantime, please don’t hesitate to reach out if you need any additional product or logistics information — we’re happy to help.\n\nBest regards,  \nSales Team  \nShenzhen Aurora Audio Co.",
+    "reply_draft": "Thank you for your inquiry and for sharing the competitive reference price.  \n\nWe’ve reviewed your requested discount of 39.84% on the Power Bank VoltCell 20000mAh (Black, SKU: SELLER_A-021), and while we truly value your partnership, this request exceeds our standard authorization limit and requires internal review by our pricing team.  \n\nWe’re currently evaluating it carefully and will provide a definitive response — including any possible commercial adjustment — within 24–48 business hours.  \n\nIn the meantime, please don’t hesitate to reach out if you’d like support with technical specs, lead times, or sample arrangements.  \n\nWarm regards,  \nSales Team  \nShenzhen Aurora Audio Co.",
     "status": "pending_approval",
     "error": null
   },
@@ -640,7 +640,7 @@
       "requires_human_approval": false,
       "reasoning": "Sin solicitud de descuento; se cotiza a precio de lista."
     },
-    "reply_draft": "Sehr geehrter Kunde,\n\nvielen Dank für Ihre Anfrage zu unseren Over-Ear-Kopfhörern *SoundMax H7* (Modell A-007, Farbe Silber).  \n\nWir bestätigen Ihnen gerne den endgültigen Einzelpreis von **15,14 USD pro Stück** (zzgl. MwSt. und Versand) für Ihre Bestellung von **100 Stück**. Dies entspricht unserem aktuellen Listenpreis – ein Rabatt wurde nicht beantragt und ist daher nicht vorgesehen.\n\nGerne erstellen wir Ihnen umgehend ein offizielles Angebot mit allen Liefer- und Zahlungsbedingungen. Sagen Sie uns einfach Bescheid, falls Sie zusätzliche Informationen benötigen oder die Bestellung formalisieren möchten.\n\nMit freundlichen Grüßen  \nIhr Aurora Audio Vertriebsteam",
+    "reply_draft": "Vielen Dank für Ihre Anfrage!\n\nWir freuen uns, Ihnen den Festpreis für Ihre Bestellung von 100 Stück „Over-Ear Headphones SoundMax H7“ (Farbe: Silber, Artikelnummer: SELLER_A-007) mitzuteilen:\n\n**Endpreis pro Stück: 15,14 USD**  \nGesamtsumme (exkl. Versand und Zoll): **1.514,00 USD**\n\nDies entspricht unserem aktuellen Listenpreis – ein Rabatt wurde nicht beantragt und ist daher nicht vorgesehen.\n\nSobald Sie die Bestellung bestätigen, bereiten wir umgehend die Auftragsabwicklung vor. Gerne unterstützen wir Sie auch bei Logistik- oder Zahlungsfragen.\n\nMit freundlichen Grüßen  \nIhr Vertriebsteam von Shenzhen Aurora Audio",
     "status": "sent",
     "error": null
   },
@@ -684,7 +684,7 @@
       "requires_human_approval": false,
       "reasoning": "Descuento solicitado explícitamente por el comprador (15.0%) está en banda soft_review (8.0-15.0%). Se responde automáticamente pero queda marcado para auditoría posterior. Referencia de mercado (competencia): promedio $1.44, rango $0.96-$1.93."
     },
-    "reply_draft": "Olá,  \n\nAgradecemos sua solicitação e confirmamos a aprovação do desconto de 15% para o item **Screen Protector GlassGuard 9H – Galaxy S26 (SKU: SELLER_A-038)**.  \n\n✅ Preço unitário final: **USD 1,24**  \n✅ Quantidade: **250 unidades**  \n✅ Total do pedido (antes de frete e impostos): **USD 310,00**  \n\nEste valor está alinhado com a nossa política de precificação e dentro da faixa competitiva observada no mercado (USD 0,96–1,93).  \n\nSe precisar de suporte com documentação comercial, prazos de entrega ou condições de pagamento, é só avisar — estamos à disposição!  \n\nAtenciosamente,  \nEquipe de Vendas  \nShenzhen Aurora Audio Co.",
+    "reply_draft": "Olá,  \n\nAgradecemos sua solicitação e confirmamos a aprovação automática do desconto de **15%** para o item **Screen Protector GlassGuard 9H – Galaxy S26 (SKU: SELLER_A-038)**.  \n\nO preço unitário final ficou em **USD 1.24**, com base na quantidade de **250 unidades**. Este valor está alinhado com a nossa política de precificação e dentro da faixa competitiva observada no mercado (USD 0.96–1.93).  \n\nFicamos à disposição para prosseguir com a emissão da proposta formal ou esclarecer qualquer dúvida.  \n\nAtenciosamente,  \nEquipe de Vendas  \nShenzhen Aurora Audio Co.",
     "status": "sent",
     "error": null
   },
@@ -745,7 +745,7 @@
       "requires_human_approval": false,
       "reasoning": "Sin solicitud de descuento; se cotiza a precio de lista."
     },
-    "reply_draft": "Bonjour,\n\nMerci pour votre demande de devis. Voici notre offre officielle pour votre commande :\n\n- **Power Bank VoltCell 20000mAh (réf. SELLER_A-021, noir)** : 150 unités à **15,79 USD/unité**  \n- **Câble USB-C FlexLink 100W (réf. SELLER_A-026, 1 m)** : 150 unités à **3,07 USD/unité**\n\nTous les prix sont nets, en USD, et correspondent à notre tarif catalogue actuel — aucune remise n’est applicable dans ce cas, conformément à nos conditions standard.\n\nN’hésitez pas à nous faire savoir si vous souhaitez procéder à la confirmation de commande ou si vous avez des questions complémentaires. Nous restons à votre disposition pour tout soutien nécessaire.\n\nBien cordialement,  \nÉquipe commerciale  \nShenzhen Aurora Audio Co.",
+    "reply_draft": "Bonjour,\n\nMerci pour votre demande de devis. Voici notre offre officielle pour votre commande :\n\n- **Power Bank VoltCell 20000mAh (réf. SELLER_A-021, noir)** : 150 unités à **15,79 USD/unité**  \n- **Câble USB-C FlexLink 100W (réf. SELLER_A-026, 1 m)** : 150 unités à **3,07 USD/unité**\n\nTous les prix sont nets, en USD, sans remise (prix catalogue), et valables sous réserve de disponibilité immédiate. Les conditions de livraison, délai et modalités de paiement peuvent être convenues dès votre validation.\n\nN’hésitez pas à nous faire savoir si vous souhaitez procéder à la commande ou si vous avez des questions complémentaires — nous sommes à votre disposition.\n\nBien cordialement,  \nÉquipe commerciale  \nShenzhen Aurora Audio Co.",
     "status": "sent",
     "error": null
   },
@@ -789,7 +789,7 @@
       "requires_human_approval": false,
       "reasoning": "Sin solicitud de descuento; se cotiza a precio de lista."
     },
-    "reply_draft": "Thank you for your inquiry!  \n\nWe’re pleased to confirm the following offer for your order:  \n\n- **Product:** TWS Earbuds AeroBuds X2 (Black)  \n- **SKU:** SELLER_A-001  \n- **Quantity:** 200 units  \n- **Unit Price (USD):** $12.02  \n- **Total Amount (USD):** $2,404.00  \n\nThis is our standard list price — no discount applies, as no special pricing request was submitted. The quoted price is competitive within the current market range ($8.64–$14.43) and reflects our commitment to quality and reliability.  \n\nShould you wish to proceed or have any questions, feel free to let us know. We’re happy to support you with documentation, samples, or logistics coordination.  \n\nWarm regards,  \nSales Team  \nShenzhen Aurora Audio Co.",
+    "reply_draft": "Thank you for your inquiry!  \n\nWe’re pleased to confirm your quotation for 200 units of the **TWS Earbuds AeroBuds X2 (Black)** at the list price of **USD 12.02 per unit**, totaling **USD 2,404.00** for the order.  \n\nThis price is competitive within the current market range (USD 8.64–14.43) and reflects our standard terms for this product line. No discount applies, as no special pricing request was submitted.  \n\nShould you wish to proceed or have any questions about payment, shipping, or customization options, feel free to let me know — I’m happy to assist!  \n\nBest regards,  \n[Your Name]  \nSales Representative  \nShenzhen Aurora Audio Co.",
     "status": "sent",
     "error": null
   }

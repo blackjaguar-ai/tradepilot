@@ -57,6 +57,33 @@ class Decision(BaseModel):
     reasoning: str
 
 
+class RepriceDecision(BaseModel):
+    """Decisión de reprecio para un SKU — determinística, misma filosofía que Decision."""
+    sku_id: str
+    product_line: str
+    variant: str
+    current_price_usd: float
+    market_avg_usd: float | None
+    deviation_pct: float | None
+    band: str = Field(..., description="no_change | autopilot | human_approval")
+    recommended_price_usd: float | None
+    applied: bool = False
+    reasoning: str
+
+
+class ReorderDecision(BaseModel):
+    """Decisión de reorden de inventario para un SKU — siempre requiere aprobación humana
+    (compromete capital), pero el DRAFT del pedido se genera solo."""
+    sku_id: str
+    product_line: str
+    variant: str
+    current_stock: int
+    reorder_threshold: int
+    recommended_qty: int
+    draft_memo: str | None
+    reasoning: str
+
+
 class AgentResult(BaseModel):
     """Resultado completo de procesar un email: lo que se guarda y lo que se muestra en el demo."""
     email_id: str
