@@ -1,0 +1,24 @@
+# TradePilot — dashboard (Fase 4)
+# Ruta en el VPS: /opt/black/tradepilot/web/docker-compose.yml
+#
+# No expone puertos al host: Nginx (en el compose de /opt/shared/web) le hace
+# proxy_pass por nombre de contenedor, vía la red externa "escai-network" —
+# mismo patrón que ya usas con decisio_frontend.
+#
+# Uso:
+#   cp .env.example .env   # y rellena BACKEND_URL con la URL real de FC
+#   docker compose up -d --build
+services:
+  tradepilot-web:
+    build: .
+    container_name: tradepilot_frontend
+    restart: always
+    environment:
+      BACKEND_URL: ${BACKEND_URL}
+    networks:
+      - escai-network
+
+networks:
+  escai-network:
+    name: escai-network
+    external: true

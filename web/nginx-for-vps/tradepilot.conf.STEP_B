@@ -1,0 +1,40 @@
+# TradePilot — Nginx PASO B (después de obtener el certificado)
+#
+# Reemplaza el contenido de:
+#   /opt/shared/web/nginx/conf.d/tradepilot.conf
+# por este archivo completo, DESPUÉS de que certbot haya emitido el
+# certificado exitosamente (ver PASO A).
+#
+# Luego:
+#   docker exec escai-nginx nginx -s reload
+
+server {
+    listen 80;
+    server_name tradepilot.blackjaguar.dev;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name tradepilot.blackjaguar.dev;
+
+    ssl_certificate /etc/letsencrypt/live/tradepilot.blackjaguar.dev/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/tradepilot.blackjaguar.dev/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    location / {
+        proxy_pass http://tradepilot_frontend:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}

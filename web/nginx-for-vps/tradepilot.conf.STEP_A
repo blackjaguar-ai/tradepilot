@@ -1,0 +1,24 @@
+# TradePilot — Nginx PASO A (antes del certificado)
+#
+# Copia este archivo como:
+#   /opt/shared/web/nginx/conf.d/tradepilot.conf
+#
+# Luego:
+#   docker exec escai-nginx nginx -s reload
+#   cd /opt/shared/web
+#   docker compose run --rm certbot certonly --webroot -w /var/www/certbot -d tradepilot.blackjaguar.dev
+#
+# Cuando certbot confirme éxito, reemplaza este archivo por el de PASO B.
+
+server {
+    listen 80;
+    server_name tradepilot.blackjaguar.dev;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
