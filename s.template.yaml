@@ -1,0 +1,88 @@
+# Serverless Devs v3 — PLANTILLA de despliegue de TradePilot en Function Compute 3.0
+#
+# Este archivo usa placeholders ${VAR} de bash estándar, NO la sintaxis
+# ${env.X} de Serverless Devs — porque esa sintaxis no está resolviendo el
+# .env correctamente en este entorno, y no vale la pena perder más tiempo
+# depurando el mecanismo interno de una herramienta de terceros.
+#
+# ORDEN OBLIGATORIO:
+#   1. export $(grep -v '^#' .env | xargs)   <- carga tus credenciales al shell
+#   2. envsubst < s.template.yaml > s.yaml    <- genera el s.yaml real con los
+#                                                 valores ya inyectados (este
+#                                                 archivo NUNCA se commitea,
+#                                                 está en .gitignore)
+#   3. s build --use-docker                    <- instala requirements.txt en
+#                                                  ./python, compilado contra
+#                                                  el mismo SO/glibc que FC
+#   4. s deploy
+#   5. s info                                   <- URL pública del trigger HTTP
+#
+# Claves de COSTO (no las toques a la ligera):
+#   - Sin "provisionedConcurrency": las instancias escalan a 0 cuando no hay
+#     tráfico => NO pagas por estar corriendo. Este es el ahorro grande.
+#   - memorySize 512 y timeout 60: suficiente, no inflar.
+edition: 3.0.0
+name: tradepilot
+access: default
+
+resources:
+  tradepilot-api:
+    component: fc3
+    props:
+      # Singapore — mismo lugar que Model Studio y Tablestore. No es un
+      # secreto, no hace falta que viva en .env.
+      region: ap-southeast-1
+      functionName: tradepilot-api
+      description: TradePilot cross-border ops agent (Track 4)
+      runtime: custom.debian10
+      code: ./
+      handler: index.handler          # ignorado por custom runtime, requerido por el schema
+      timeout: 60
+      memorySize: 512
+      instanceConcurrency: 5
+      customRuntimeConfig:
+        command:
+          - bash
+          - bootstrap
+        port: 9000
+      environmentVariables:
+        # Sin esto, python3 en tiempo de ejecución NO encuentra las dependencias
+        # que 's build' instaló en ./python (pip install -t python). El propio
+        # build de Alibaba te lo dice en el output — no es opcional.
+        PYTHONPATH: /code/python
+        # CRÍTICO: /var/fc/lang/python3.10/bin va ANTES que /usr/bin. Ruta
+        # CONFIRMADA por diagnóstico directo del contenedor (no por
+        # documentación — /opt/python3.10 resultó no existir en este runtime).
+        # Sin esto, 'python3' resuelve al Python 3.7 del sistema base y
+        # uvicorn truena con "ImportError: cannot import name 'Literal'".
+        PATH: /code/python/bin:/var/fc/lang/python3.10/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/code:/code/bin:/opt:/opt/bin
+        DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY}
+        QWEN_BASE_URL: ${QWEN_BASE_URL}
+        QWEN_MODEL_FAST: ${QWEN_MODEL_FAST}
+        QWEN_MODEL_SMART: ${QWEN_MODEL_SMART}
+        TABLESTORE_ENDPOINT: ${TABLESTORE_ENDPOINT}
+        TABLESTORE_INSTANCE: ${TABLESTORE_INSTANCE}
+        TABLESTORE_ACCESS_KEY_ID: ${TABLESTORE_ACCESS_KEY_ID}
+        TABLESTORE_ACCESS_KEY_SECRET: ${TABLESTORE_ACCESS_KEY_SECRET}
+        ALIYUN_REGION: ${ALIYUN_REGION}
+      triggers:
+        - triggerName: httpTrigger
+          triggerType: http
+          triggerConfig:
+            authType: anonymous
+            methods:
+              - GET
+              - POST
+      # NOTA sobre repricing/reorder (Fase 3, subflujos 2 y 3):
+      # Los endpoints POST /agent/scan/repricing y POST /agent/scan/reorder ya
+      # existen y funcionan vía HTTP. Para dispararlos automáticamente cada
+      # ciertas horas, la opción más simple y confiable a esta altura del
+      # hackathon es un cron EXTERNO (ej. crontab en tu VPS) pegándole a la
+      # URL pública de FC:
+      #
+      #   0 */6 * * *  curl -X POST https://<tu-url-fc>/agent/scan/repricing
+      #   0 3 * * *    curl -X POST https://<tu-url-fc>/agent/scan/reorder
+      #
+      # Alibaba FC también soporta triggerType: timer nativo, pero el contrato
+      # exacto de cómo entrega el evento a un custom runtime no está verificado
+      # aquí — mejor no apostarle a algo sin probar a horas del deadline.

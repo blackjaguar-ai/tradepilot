@@ -1,5 +1,8 @@
 #!/bin/bash
 # Entrypoint del custom runtime de Alibaba Function Compute.
-# FC inyecta el puerto en FC_SERVER_PORT (por defecto 9000). Uvicorn escucha ahí.
-PORT=${FC_SERVER_PORT:-9000}
-exec uvicorn app.main:app --host 0.0.0.0 --port "$PORT"
+# Puerto fijo 9000, igual al declarado en customRuntimeConfig.port de s.yaml.
+#
+# Ruta de Python 3.10 CONFIRMADA por diagnóstico directo del contenedor real
+# (no de documentación, que resultó equivocada dos veces): /var/fc/lang/python3.10/
+# Se invoca por ruta explícita, sin depender de PATH.
+exec /var/fc/lang/python3.10/bin/python3.10 -m uvicorn app.main:app --host 0.0.0.0 --port 9000

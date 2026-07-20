@@ -29,3 +29,15 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Fallback local de datos runtime (memoria de comprador, aprobaciones) — no versionar
+data/_runtime_*.json
+data/demo_results.json
+
+# s.yaml se genera desde s.template.yaml con envsubst e incluye secretos
+# inyectados — el que se versiona es s.template.yaml, nunca s.yaml.
+/s.yaml
+
+# ./python la genera 's build' con todas las dependencias instaladas —
+# artefacto de build, no se versiona, se regenera cuando haga falta.
+/python/
