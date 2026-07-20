@@ -1,0 +1,20 @@
+{
+  "priya.shah@example.com": {
+    "buyer_name": "Priya Shah",
+    "last_email_id": "EMAIL-007",
+    "last_product_line": "Screen Protector GlassGuard 9H",
+    "last_variant": "iPhone 16",
+    "last_quantity": 500,
+    "last_unit_price_usd": null,
+    "updated_at": 1784515366
+  },
+  "tomás.ferreyra@example.com": {
+    "buyer_name": "Tomás Ferreyra",
+    "last_email_id": "EMAIL-008",
+    "last_product_line": "Bluetooth Speaker BoomCube Mini",
+    "last_variant": "Black",
+    "last_quantity": 400,
+    "last_unit_price_usd": null,
+    "updated_at": 1784515372
+  }
+}

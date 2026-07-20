@@ -32,6 +32,14 @@ class QwenClient:
         )
         return resp.choices[0].message.content or ""
 
+    @property
+    def model_fast(self) -> str:
+        return self._model_fast
+
+    @property
+    def model_smart(self) -> str:
+        return self._model_smart
+
     def raw(self, model: str, messages: list[dict], **kwargs):
         """Acceso crudo al SDK cuando necesites tools/function-calling completo."""
         return self._client.chat.completions.create(

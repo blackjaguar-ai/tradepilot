@@ -138,7 +138,7 @@ EMAILS = [
     dict(lang="es", country="MX", name="Camila Reyes",
          subject="Cotización audífonos inalámbricos",
          body="Buenas, necesito cotizar los audífonos AeroBuds X2 en color blanco, "
-              "unas 200 unidades. ¿Manejan algún descuento por volumen?",
+              "unas 200 unidades. ¿Podrían ofrecer un 5% de descuento por volumen?",
          discount_ask_pct=5, note="descuento leve, dentro de autopiloto"),
     dict(lang="zh", country="CN", name="Li Wei",
          subject="询价 - 蓝牙耳机",
@@ -148,7 +148,7 @@ EMAILS = [
     dict(lang="fr", country="FR", name="Élodie Marchand",
          subject="Demande de devis — chargeurs GaN",
          body="Bonjour, je souhaite commander le chargeur PowerNode 65W, "
-              "prise EU, 100 unités. Pouvez-vous m'envoyer un devis avec le meilleur prix possible ?",
+              "prise EU, 100 unités. Serait-il possible d'avoir une remise de 3% sur cette commande ?",
          discount_ask_pct=3, note="autopiloto"),
     dict(lang="de", country="DE", name="Jonas Richter",
          subject="Anfrage: Power Bank VoltCell",
@@ -184,8 +184,8 @@ EMAILS = [
     dict(lang="en", country="AU", name="Chloe Bennett",
          subject="Cable pricing",
          body="Need a quote on the USB-C FlexLink 100W cable, 2m length, 1000 units. "
-              "What's your lead time and best unit price?",
-         discount_ask_pct=0, note="hero flow, sin negociación, volumen alto"),
+              "Could you do a 6% discount at this volume? What's your lead time?",
+         discount_ask_pct=6, note="hero flow, volumen alto, autopilot explícito"),
     dict(lang="es", country="CO", name="Valentina Prieto",
          subject="Consulta fundas para celular",
          body="Buenos días, ¿tienen fundas transparentes para iPhone 16? "
@@ -199,8 +199,9 @@ EMAILS = [
                                   "(chequea que el agente NO lo confunda con catálogo propio)"),
     dict(lang="en", country="NG", name="Adaeze Okafor",
          subject="Competitor is offering lower price",
-         body="I got a quote from another supplier for the VoltCell power bank at $9.50/unit "
-              "for 300 units. Can you match or beat that price?",
+         body="I'd like to order the VoltCell power bank in black, 300 units. "
+              "I got a quote from another supplier for the same item at $9.50/unit. "
+              "Can you match or beat that price?",
          discount_ask_pct=None, note="negociación basada en precio de competencia — "
                                       "prueba directa del uso de datos B/C como señal de mercado"),
     dict(lang="de", country="AT", name="Sophie Lang",

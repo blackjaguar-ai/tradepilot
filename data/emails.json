@@ -15,7 +15,7 @@
     "country": "MX",
     "name": "Camila Reyes",
     "subject": "Cotización audífonos inalámbricos",
-    "body": "Buenas, necesito cotizar los audífonos AeroBuds X2 en color blanco, unas 200 unidades. ¿Manejan algún descuento por volumen?",
+    "body": "Buenas, necesito cotizar los audífonos AeroBuds X2 en color blanco, unas 200 unidades. ¿Podrían ofrecer un 5% de descuento por volumen?",
     "discount_ask_pct": 5,
     "note": "descuento leve, dentro de autopiloto"
   },
@@ -35,7 +35,7 @@
     "country": "FR",
     "name": "Élodie Marchand",
     "subject": "Demande de devis — chargeurs GaN",
-    "body": "Bonjour, je souhaite commander le chargeur PowerNode 65W, prise EU, 100 unités. Pouvez-vous m'envoyer un devis avec le meilleur prix possible ?",
+    "body": "Bonjour, je souhaite commander le chargeur PowerNode 65W, prise EU, 100 unités. Serait-il possible d'avoir une remise de 3% sur cette commande ?",
     "discount_ask_pct": 3,
     "note": "autopiloto"
   },
@@ -105,9 +105,9 @@
     "country": "AU",
     "name": "Chloe Bennett",
     "subject": "Cable pricing",
-    "body": "Need a quote on the USB-C FlexLink 100W cable, 2m length, 1000 units. What's your lead time and best unit price?",
-    "discount_ask_pct": 0,
-    "note": "hero flow, sin negociación, volumen alto"
+    "body": "Need a quote on the USB-C FlexLink 100W cable, 2m length, 1000 units. Could you do a 6% discount at this volume? What's your lead time?",
+    "discount_ask_pct": 6,
+    "note": "hero flow, volumen alto, autopilot explícito"
   },
   {
     "email_id": "EMAIL-012",
@@ -135,7 +135,7 @@
     "country": "NG",
     "name": "Adaeze Okafor",
     "subject": "Competitor is offering lower price",
-    "body": "I got a quote from another supplier for the VoltCell power bank at $9.50/unit for 300 units. Can you match or beat that price?",
+    "body": "I'd like to order the VoltCell power bank in black, 300 units. I got a quote from another supplier for the same item at $9.50/unit. Can you match or beat that price?",
     "discount_ask_pct": null,
     "note": "negociación basada en precio de competencia — prueba directa del uso de datos B/C como señal de mercado"
   },

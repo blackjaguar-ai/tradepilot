@@ -36,3 +36,47 @@ def ready():
 @app.get("/")
 def root():
     return {"service": "tradepilot", "docs": "/docs", "health": "/health"}
+
+
+# ── Agente (Fase 2) ─────────────────────────────────────────────────
+from pydantic import BaseModel
+
+from app.agent import pipeline, store
+
+
+class EmailIn(BaseModel):
+    email_id: str
+    buyer_name: str
+    buyer_email: str
+    subject: str
+    body: str
+
+
+@app.post("/agent/process-email")
+def process_email(payload: EmailIn):
+    """Corre el pipeline completo sobre un email y devuelve el resultado."""
+    result = pipeline.process_email(
+        email_id=payload.email_id,
+        buyer_name=payload.buyer_name,
+        buyer_email=payload.buyer_email,
+        subject=payload.subject,
+        body=payload.body,
+    )
+    return result.model_dump()
+
+
+@app.get("/agent/approvals")
+def list_approvals():
+    """Cola de aprobación humana: descuentos >15% pendientes de decisión."""
+    return {"pending": store.list_pending_approvals()}
+
+
+class ApprovalDecision(BaseModel):
+    approved: bool
+    approved_discount_pct: float | None = None
+
+
+@app.post("/agent/approvals/{approval_id}/decision")
+def resolve_approval(approval_id: str, payload: ApprovalDecision):
+    store.resolve_approval(approval_id, payload.approved, payload.approved_discount_pct)
+    return {"approval_id": approval_id, "status": "approved" if payload.approved else "rejected"}
