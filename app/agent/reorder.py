@@ -67,12 +67,14 @@ def run_reorder_scan(seller_id: str = SELLER_ID) -> list[ReorderDecision]:
 
         approval_id = f"reorder-{sku['sku_id']}"
         existing = store.get_approval(approval_id)
-        already_decided_same_proposal = (
-            existing is not None
-            and existing.get("status") != "pending"
-            and existing.get("recommended_qty") == decision.recommended_qty
+        # OJO: el guard compara solo recommended_qty, sin importar el status.
+        # Si comparara solo contra "ya resuelta", un cron periódico redactaría
+        # el memo con Qwen (gasta tokens reales) en cada corrida mientras la
+        # aprobación siga pendiente — que es la mayoría del tiempo.
+        same_proposal_already_queued = (
+            existing is not None and existing.get("recommended_qty") == decision.recommended_qty
         )
-        if already_decided_same_proposal:
+        if same_proposal_already_queued:
             decision.draft_memo = existing.get("draft_memo")
             results.append(decision)
             continue

@@ -72,12 +72,11 @@ def run_repricing_scan(seller_id: str = SELLER_ID) -> list[RepriceDecision]:
         elif decision.band == "human_approval":
             approval_id = f"reprice-{sku['sku_id']}"
             existing = store.get_approval(approval_id)
-            already_decided_same_proposal = (
+            same_proposal_already_queued = (
                 existing is not None
-                and existing.get("status") != "pending"
                 and existing.get("recommended_price_usd") == decision.recommended_price_usd
             )
-            if not already_decided_same_proposal:
+            if not same_proposal_already_queued:
                 store.enqueue_approval(approval_id, {
                     "kind": "reprice",
                     "sku_id": sku["sku_id"],

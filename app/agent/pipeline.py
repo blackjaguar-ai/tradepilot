@@ -199,6 +199,7 @@ def _run_pipeline(idem_key: str, email_id: str, buyer_name: str, buyer_email: st
             "email_id": email_id,
             "buyer_name": buyer_name,
             "buyer_email": buyer_email,
+            "language": extracted.language,
             "product_line": primary.product_line,
             "variant": primary.variant,
             "quantity": primary.quantity,

@@ -41,7 +41,9 @@ def load_catalog(seller_id: str) -> tuple[dict, ...]:
 
 
 def _normalize(text: str) -> str:
-    return re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()
+    # ojo: preserva '+' — sin esto, "Galaxy S26" y "Galaxy S26+" normalizan
+    # igual y se vuelven indistinguibles, aunque son SKUs distintos.
+    return re.sub(r"[^a-z0-9+]+", " ", text.lower()).strip()
 
 
 def find_product_candidates(seller_id: str, query: str) -> list[dict]:
@@ -83,11 +85,21 @@ def resolve_variant(candidates: list[dict], variant_query: str | None) -> tuple[
     if variant_query:
         vq = _normalize(variant_query)
         if vq:  # guarda: una normalización vacía (ej. texto no-latino que se coló sin traducir)
-            # NUNCA debe tratarse como "coincide con todo" — eso fue el bug original.
+            # 1. match EXACTO primero — siempre gana, sin ambigüedad posible.
             for item in candidates:
-                iv = _normalize(item["variant"])
-                if iv and (vq in iv or iv in vq):
+                if _normalize(item["variant"]) == vq:
                     return item, False, []
+            # 2. si no hay exacto, substring — pero el candidato más ESPECÍFICO
+            # (más largo) gana, no el primero que aparezca en la lista.
+            # Sin esto, "iPhone 16" (substring literal de "iPhone 16 Pro")
+            # le ganaba a "iPhone 16 Pro" solo por venir antes en el catálogo.
+            substring_matches = [
+                item for item in candidates
+                if (iv := _normalize(item["variant"])) and (vq in iv or iv in vq)
+            ]
+            if substring_matches:
+                best = max(substring_matches, key=lambda it: len(_normalize(it["variant"])))
+                return best, False, []
 
     # más de una variante posible y no se pudo desambiguar -> pedir aclaración
     return None, True, [c["variant"] for c in candidates]

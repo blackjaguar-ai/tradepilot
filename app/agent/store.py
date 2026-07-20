@@ -163,3 +163,38 @@ def save_processed_result(email_id: str, result: dict) -> None:
     data = _read_local(_LOCAL_PROCESSED_FILE)
     data[email_id] = result
     _write_local(_LOCAL_PROCESSED_FILE, data)
+
+
+def list_processed_emails(limit: int = 50) -> list[dict]:
+    """Lista los últimos emails procesados — el feed de actividad del dashboard.
+    No existía ningún listado hasta ahora, solo lookup por ID individual.
+    """
+    try:
+        from app.clients.tablestore import get_tablestore
+        from tablestore import Direction, INF_MAX, INF_MIN
+
+        client = get_tablestore().raw
+        start = [("email_id", INF_MIN)]
+        end = [("email_id", INF_MAX)]
+        items = []
+        while True:
+            _, next_start, rows, _ = client.get_range(
+                PROCESSED_EMAILS_TABLE, Direction.FORWARD, start, end, limit=200
+            )
+            for row in rows:
+                attrs = {k: v for k, v, _ in row.attribute_columns}
+                if "result_json" in attrs:
+                    result = json.loads(attrs["result_json"])
+                    result["_processed_at"] = attrs.get("processed_at")
+                    items.append(result)
+            if not next_start:
+                break
+            start = next_start
+        items.sort(key=lambda r: r.get("_processed_at") or 0, reverse=True)
+        if items:
+            return items[:limit]
+    except Exception:
+        pass
+    data = _read_local(_LOCAL_PROCESSED_FILE)
+    items = list(data.values())
+    return items[:limit]

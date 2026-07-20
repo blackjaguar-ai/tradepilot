@@ -146,3 +146,21 @@ def scan_reorder():
         "flagged_for_reorder": len(results),
         "results": [r.model_dump() for r in results],
     }
+
+
+# ── Endpoints de lectura para el dashboard (Fase 4) ─────────────────
+from app.agent import catalog as catalog_module
+
+
+@app.get("/catalog/{seller_id}")
+def get_catalog(seller_id: str):
+    """Catálogo completo de un vendedor — para la vista de tabla del dashboard."""
+    items = catalog_module.load_catalog(seller_id)
+    return {"seller_id": seller_id, "count": len(items), "items": list(items)}
+
+
+@app.get("/agent/activity")
+def get_activity(limit: int = 50):
+    """Últimos emails procesados (cualquier banda) — feed de actividad del dashboard."""
+    items = store.list_processed_emails(limit=limit)
+    return {"count": len(items), "items": items}
